@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cicd
+  namespace: default
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Nsang4625/Project-6.git
+    targetRevision: HEAD
+    path: helm/cicd
+    helm:
+      valueFiles:
+      - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cicd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

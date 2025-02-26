@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pvc
+  namespace: cicd
+  labels:
+    app: jenkins
+    environment: production
+  annotations:
+    kubernetes.io/description: "Jenkins home directory storage"
+    backup.velero.io/backup-volumes: jenkins-home
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp2
+  resources:
+    requests:
+      storage: 30Gi
