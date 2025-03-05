@@ -1,5 +1,5 @@
 ---
-# 3-sonarqube.yaml
+# PVCs for SonarQube
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -29,3 +29,18 @@ spec:
   resources:
     requests:
       storage: 10Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sonarqube-h2-pvc
+  namespace: cicd
+  labels:
+    app: sonarqube
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp2
+  resources:
+    requests:
+      storage: 5Gi

@@ -12,12 +12,12 @@ variable "subnet_ids" {
 
 variable "node_instance_types" {
   type    = list(string)
-  default = ["t3.medium"]
+  default = ["t3a.large"]
 }
 
 variable "node_desired_size" {
   type    = number
-  default = 2
+  default = 4
 }
 
 variable "node_min_size" {
@@ -32,5 +32,10 @@ variable "node_max_size" {
 
 variable "kubernetes_version" {
   type    = string
-  default = "1.27"
+  default = "1.30"
+}
+
+variable "capacity_type" {
+  type    = string
+  default = "SPOT"  # Thêm biến để chọn loại capacity
 }

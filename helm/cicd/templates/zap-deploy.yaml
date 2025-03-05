@@ -1,48 +1,3 @@
-# 2-configmap.yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: zap-config
-  namespace: cicd
-data:
-  zap-api-scan.conf: |
-    # Add any custom ZAP configurations here
-    api.disablekey=true
-    api.addrs.addr.name=.*
-    api.addrs.addr.regex=true
----
-# 3-rbac.yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: zap-sa
-  namespace: cicd
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: zap-role
-  namespace: cicd
-rules:
-- apiGroups: [""]
-  resources: ["pods", "services"]
-  verbs: ["get", "list"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: zap-rolebinding
-  namespace: cicd
-subjects:
-- kind: ServiceAccount
-  name: zap-sa
-  namespace: cicd
-roleRef:
-  kind: Role
-  name: zap-role
-  apiGroup: rbac.authorization.k8s.io
----
-# 4-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -58,10 +13,9 @@ spec:
       labels:
         app: zap-proxy
     spec:
-      serviceAccountName: zap-sa
       containers:
       - name: zap-proxy
-        image: owasp/zap2docker-stable
+        image: ghcr.io/zaproxy/zaproxy:stable
         args:
         - "zap.sh"
         - "-daemon"
@@ -71,10 +25,6 @@ spec:
         - "8080"
         - "-config"
         - "api.disablekey=true"
-        - "-config"
-        - "api.addrs.addr.name=.*"
-        - "-config"
-        - "api.addrs.addr.regex=true"
         ports:
         - containerPort: 8080
           name: http
@@ -82,29 +32,8 @@ spec:
           name: websocket
         resources:
           requests:
+            memory: "1Gi"
+            cpu: "250m"
+          limits:
             memory: "2Gi"
             cpu: "500m"
-          limits:
-            memory: "4Gi"
-            cpu: "1000m"
-        readinessProbe:
-          tcpSocket:
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        livenessProbe:
-          tcpSocket:
-            port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
-        volumeMounts:
-        - name: zap-config
-          mountPath: /zap/wrk
-        securityContext:
-          allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          runAsUser: 1000
-      volumes:
-      - name: zap-config
-        configMap:
-          name: zap-config

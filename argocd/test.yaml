@@ -1,0 +1,26 @@
+# my-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-application
+  namespace: default
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Nsang4625/test-github.git
+    targetRevision: HEAD
+    path: nginx # Đường dẫn tới Helm chart
+    helm:
+      valueFiles:
+      - values.yaml # File values mặc định
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: my-app
+
+  # Cấu hình sync
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true

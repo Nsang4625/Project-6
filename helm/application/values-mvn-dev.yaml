@@ -1,0 +1,33 @@
+# Application Configuration
+application:
+  name: myapp
+  environment: dev
+  image:
+    repository: nginx # default image
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  # Container port
+  containerPort: 8080
+
+  # Resource requirements
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 400m
+      memory: 512Mi
+
+  # Replicas
+  replicas: 1
+
+# Service Configuration
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+# Common Labels
+labels:
+  team: devops

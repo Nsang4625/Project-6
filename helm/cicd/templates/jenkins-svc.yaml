@@ -4,8 +4,8 @@ metadata:
     name: jenkins
     namespace: cicd
     annotations:
-        service.beta.kubernetes.io/aws-load-balancer-type: nlb    # Use Network Load Balancer
-        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+      service.beta.kubernetes.io/aws-load-balancer-type: "external"
+      service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
 spec:
     type: LoadBalancer
     ports:

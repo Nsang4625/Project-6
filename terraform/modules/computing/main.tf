@@ -56,6 +56,7 @@ resource "aws_eks_node_group" "main" {
   }
 
   instance_types = var.node_instance_types
+  capacity_type  = var.capacity_type
 
   depends_on = [
     aws_iam_role_policy_attachment.node_AmazonEKSWorkerNodePolicy,
