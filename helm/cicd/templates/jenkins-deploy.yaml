@@ -39,7 +39,7 @@ spec:
           mountPath: /var/jenkins_home
       containers:
       - name: jenkins
-        image: jenkins/jenkins:lts
+        image: sanguyenex/custom_jenkins:latest
         env:
         - name: PATH
           value: "/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/jenkins_home/bin:/var/jenkins_home/trivy"
@@ -74,6 +74,7 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 5
           failureThreshold: 3
+      serviceAccountName: jenkins
       volumes:
       - name: jenkins-home
         persistentVolumeClaim:
