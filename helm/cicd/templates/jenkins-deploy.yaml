@@ -39,7 +39,7 @@ spec:
           mountPath: /var/jenkins_home
       containers:
       - name: jenkins
-        image: sanguyenex/custom_jenkins:latest
+        image: sanguyenex/custom_jenkins:v2
         env:
         - name: PATH
           value: "/opt/java/openjdk/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/var/jenkins_home/bin:/var/jenkins_home/trivy"
