@@ -47,7 +47,7 @@ resource "aws_eks_node_group" "main" {
   cluster_name    = aws_eks_cluster.main.name
   node_group_name = "${var.project_name}-node-group"
   node_role_arn   = aws_iam_role.node.arn
-  subnet_ids      = var.subnet_ids
+  subnet_ids      = [var.subnet_ids[1]]  # Chỉ sử dụng subnet ở AZ thứ 2
 
   scaling_config {
     desired_size = var.node_desired_size

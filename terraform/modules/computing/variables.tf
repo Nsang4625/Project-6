@@ -12,7 +12,7 @@ variable "subnet_ids" {
 
 variable "node_instance_types" {
   type    = list(string)
-  default = ["t3a.large"]
+  default = ["t3a.large", "t3a.medium", "t3.medium"]
 }
 
 variable "node_desired_size" {

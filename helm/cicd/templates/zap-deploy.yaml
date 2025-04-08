@@ -25,6 +25,10 @@ spec:
         - "8080"
         - "-config"
         - "api.disablekey=true"
+        - "-config"
+        - "api.addrs.addr.name=.*"
+        - "-config"
+        - "api.addrs.addr.regex=true"
         ports:
         - containerPort: 8080
           name: http

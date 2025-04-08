@@ -41,7 +41,7 @@ module "eks" {
   kubernetes_version = "1.30"
   
   # Điều chỉnh số lượng node cho phù hợp với 2 AZs
-  node_desired_size  = 4  # 1 node mỗi AZ
+  node_desired_size  = 3  # 1 node mỗi AZ
   node_min_size     = 1
   node_max_size     = 4
 }
