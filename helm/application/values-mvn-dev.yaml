@@ -1,10 +1,10 @@
 # Application Configuration
 application:
-  name: myapp
-  environment: dev
+  name: mvn
+  environment: staging
   image:
-    repository: nginx # default image
-    tag: v1
+    repository: 687511516464.dkr.ecr.us-east-1.amazonaws.com/project-647-docker # default image
+    tag: test
     pullPolicy: IfNotPresent
 
   # Container port
