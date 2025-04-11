@@ -4,7 +4,7 @@ application:
   environment: staging
   image:
     repository: 687511516464.dkr.ecr.us-east-1.amazonaws.com/project-647-docker # default image
-    tag: 180c94b
+    tag: test
     pullPolicy: IfNotPresent
 
   # Container port
