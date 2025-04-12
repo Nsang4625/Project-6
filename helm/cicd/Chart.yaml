@@ -1,6 +1,0 @@
-apiVersion: v2
-name: cicd # Changed to match your application name
-description: A Helm chart for CI/CD tools deployment
-type: application
-version: 0.1.0
-appVersion: "1.0.0"
