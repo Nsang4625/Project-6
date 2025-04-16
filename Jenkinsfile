@@ -2,12 +2,8 @@
 
 pipeline {
     agent any
-    tools {
-        maven '3.9.9'
-    }
     environment {
         COMMIT_SHORT = "180c94b"
-        SCANNER_HOME=tool 'sonar-scanner'
     }
     stages {
         stage("Check out"){
@@ -17,11 +13,17 @@ pipeline {
             }
         }
         stage('Unit test'){
+            tools {
+                maven '3.9.9'
+            }
             steps {
                 unitTest(language:"java")
             }
         }
         stage('Code analyst'){
+            environment{
+                SCANNER_HOME=tool 'sonar-scanner'
+            }
             steps {
                 echo "$SCANNER_HOME"
                 sonarScan([sonarScanner: "${SCANNER_HOME}", sonarServer: "sonar-server", sonarProjectKey: "Test", sonarHostUrl: "http://sonarqube:9000", sonarToken: "sonar-project-token", qualityGateTimeout: 5])
